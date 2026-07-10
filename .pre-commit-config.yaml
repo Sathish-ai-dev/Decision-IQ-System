@@ -1,0 +1,30 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff check
+        entry: ruff check --fix
+        language: system
+        files: ^(backend|tests)/.*\.pyi?$
+      - id: isort
+        name: isort
+        entry: isort --filter-files
+        language: system
+        files: ^(backend|tests)/.*\.pyi?$
+      - id: black
+        name: black
+        entry: black
+        language: system
+        files: ^(backend|tests)/.*\.pyi?$
+      - id: mypy
+        name: mypy
+        entry: mypy backend tests
+        language: system
+        pass_filenames: false
+        stages: [manual]
+      - id: pytest
+        name: pytest
+        entry: pytest
+        language: system
+        pass_filenames: false
+        stages: [manual]

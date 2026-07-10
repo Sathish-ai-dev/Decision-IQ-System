@@ -7,6 +7,36 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Python
+__pycache__/
+*.py[cod]
+*.py,cover
+.python-version
+.venv/
+venv/
+env/
+ENV/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.pre-commit-cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+site/
+*.sqlite3
+*.db
+
+# Local env files
+.env
+.env.*
+!.env.example
+
 node_modules
 dist
 dist-ssr
