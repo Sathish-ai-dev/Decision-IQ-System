@@ -13,6 +13,7 @@ if str(BACKEND_DIR) not in sys.path:
 
 from app.core.config import settings  # noqa: E402
 from app.database.base import Base  # noqa: E402
+import app.models  # noqa: E402,F401
 
 
 config = context.config
@@ -71,4 +72,3 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
-

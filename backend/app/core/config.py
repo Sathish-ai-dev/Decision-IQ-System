@@ -57,6 +57,27 @@ class Settings(BaseSettings):
         default=None,
         validation_alias="SUPABASE_JWT_AUDIENCE",
     )
+    jwt_secret_key: str | None = Field(default=None, validation_alias="JWT_SECRET_KEY")
+    jwt_algorithm: str = Field(
+        default="HS256",
+        validation_alias="JWT_ALGORITHM",
+    )
+    jwt_issuer: str = Field(
+        default="decision-iq-backend",
+        validation_alias="JWT_ISSUER",
+    )
+    jwt_audience: str = Field(
+        default="decision-iq",
+        validation_alias="JWT_AUDIENCE",
+    )
+    jwt_access_token_expiry_minutes: int = Field(
+        default=15,
+        validation_alias="JWT_ACCESS_TOKEN_EXPIRY_MINUTES",
+    )
+    jwt_refresh_token_expiry_days: int = Field(
+        default=30,
+        validation_alias="JWT_REFRESH_TOKEN_EXPIRY_DAYS",
+    )
     gemini_api_key: str | None = Field(default=None, validation_alias="GEMINI_API_KEY")
     vertex_project_id: str | None = Field(
         default=None,
@@ -146,6 +167,10 @@ class Settings(BaseSettings):
         "supabase_publishable_key",
         "supabase_jwks_url",
         "supabase_jwt_audience",
+        "jwt_secret_key",
+        "jwt_algorithm",
+        "jwt_issuer",
+        "jwt_audience",
         "gemini_api_key",
         "vertex_project_id",
         "vertex_location",
@@ -194,6 +219,11 @@ class Settings(BaseSettings):
                 self.redis_url = "redis://localhost:6379/15"
             else:
                 self.redis_url = "redis://localhost:6379/0"
+
+        if self.jwt_secret_key is None:
+            if self.environment is Environment.PRODUCTION:
+                raise ValueError("JWT_SECRET_KEY is required in production.")
+            self.jwt_secret_key = "development-only-jwt-secret-key"
 
         if self.environment is Environment.PRODUCTION:
             missing = [

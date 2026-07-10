@@ -2,12 +2,13 @@ from app.database.base import Base
 from app.database.dependencies import get_db
 from app.database.engine import engine, get_engine
 from app.database.health import check_database_health
-from app.database.mixins import TimestampMixin, UUIDMixin
+from app.database.mixins import SoftDeleteMixin, TimestampMixin, UUIDMixin
 from app.database.session import SessionLocal, get_session
 
 __all__ = [
     "Base",
     "SessionLocal",
+    "SoftDeleteMixin",
     "TimestampMixin",
     "UUIDMixin",
     "check_database_health",
@@ -16,4 +17,3 @@ __all__ = [
     "get_engine",
     "get_session",
 ]
-
