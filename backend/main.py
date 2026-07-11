@@ -11,7 +11,7 @@ from app.core.exceptions import register_exception_handlers
 from app.core.logging import configure_logging
 from app.core.middleware import add_middleware
 from app.database.health import check_database_health
-from app.api import auth_router
+from app.api import auth_router, organizations_router
 
 
 APP_VERSION = "0.1.0"
@@ -36,6 +36,7 @@ configure_logging()
 add_middleware(app)
 register_exception_handlers(app)
 app.include_router(auth_router, prefix=settings.api_v1_prefix)
+app.include_router(organizations_router, prefix=settings.api_v1_prefix)
 
 
 def get_uptime() -> float:
